@@ -1,0 +1,25 @@
+# @title
+!pip install openai
+
+# @title
+import os
+
+# Substitua o texto "INSERIR CHAVE API" por sua API Key da OpenAI, ela será salva como uma variável de ambiente.
+os.environ['OPENAI_API_KEY'] = 'INSERIR CHAVE API'
+
+# @title
+import openai
+
+# Configura a chave de API da OpenAI usando a variável de ambiente 'OPENAI_API_KEY'
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+# Envia uma requisição à API do ChatCompletion usando o modelo GPT-3.5 Turbo
+# Lembrando que, a variável 'transcription' contém a transcrição do nosso áudio.
+response = openai.ChatCompletion.create(
+    model="gpt-5.4",
+    messages=[ { "role": "user", "content": transcription } ]
+)
+
+# Obtém a resposta gerada pelo ChatGPT
+chatgpt_response = response.choices[0].message.content
+print(chatgpt_response)
